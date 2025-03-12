@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "r2Djmqj6AERlMnda1AxBGBmRTTA5PhsU4SuSmmkxLCE=",
+  "Source": "ESGAnalyzerServer",
+  "BasePath": "_content/ESGAnalyzerServer",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Studia\\Magisterka\\Praca magisterska\\Program\\Frontend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C257EFC8-D914-4BB0-836F-3CEB9449B1EE}|CLI\\CLI.csproj|d:\\studia\\magisterka\\praca magisterska\\program\\frontend\\cli\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C257EFC8-D914-4BB0-836F-3CEB9449B1EE}|CLI\\CLI.csproj|solutionrelative:cli\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Studia\\Magisterka\\Praca magisterska\\Program\\Frontend\\CLI\\Program.cs",
+              "RelativeDocumentMoniker": "CLI\\Program.cs",
+              "ToolTip": "D:\\Studia\\Magisterka\\Praca magisterska\\Program\\Frontend\\CLI\\Program.cs",
+              "RelativeToolTip": "CLI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-11T14:17:07.648Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

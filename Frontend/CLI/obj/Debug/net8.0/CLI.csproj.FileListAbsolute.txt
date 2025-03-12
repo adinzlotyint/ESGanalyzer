@@ -1,0 +1,14 @@
+D:\Studia\Magisterka\Praca magisterska\Program\Frontend\CLI\bin\Debug\net8.0\CLI.exe
+D:\Studia\Magisterka\Praca magisterska\Program\Frontend\CLI\bin\Debug\net8.0\CLI.deps.json
+D:\Studia\Magisterka\Praca magisterska\Program\Frontend\CLI\bin\Debug\net8.0\CLI.runtimeconfig.json
+D:\Studia\Magisterka\Praca magisterska\Program\Frontend\CLI\bin\Debug\net8.0\CLI.dll
+D:\Studia\Magisterka\Praca magisterska\Program\Frontend\CLI\bin\Debug\net8.0\CLI.pdb
+D:\Studia\Magisterka\Praca magisterska\Program\Frontend\CLI\obj\Debug\net8.0\CLI.GeneratedMSBuildEditorConfig.editorconfig
+D:\Studia\Magisterka\Praca magisterska\Program\Frontend\CLI\obj\Debug\net8.0\CLI.AssemblyInfoInputs.cache
+D:\Studia\Magisterka\Praca magisterska\Program\Frontend\CLI\obj\Debug\net8.0\CLI.AssemblyInfo.cs
+D:\Studia\Magisterka\Praca magisterska\Program\Frontend\CLI\obj\Debug\net8.0\CLI.csproj.CoreCompileInputs.cache
+D:\Studia\Magisterka\Praca magisterska\Program\Frontend\CLI\obj\Debug\net8.0\CLI.dll
+D:\Studia\Magisterka\Praca magisterska\Program\Frontend\CLI\obj\Debug\net8.0\refint\CLI.dll
+D:\Studia\Magisterka\Praca magisterska\Program\Frontend\CLI\obj\Debug\net8.0\CLI.pdb
+D:\Studia\Magisterka\Praca magisterska\Program\Frontend\CLI\obj\Debug\net8.0\CLI.genruntimeconfig.cache
+D:\Studia\Magisterka\Praca magisterska\Program\Frontend\CLI\obj\Debug\net8.0\ref\CLI.dll
