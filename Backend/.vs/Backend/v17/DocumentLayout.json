@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Studia\\Magisterka\\Praca magisterska\\Program\\Backend\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E637B059-F2DD-4CC9-A7E9-DFBD14C5C071}|ESGAnalyzerServer\\ESGAnalyzerServer.csproj|d:\\studia\\magisterka\\praca magisterska\\program\\backend\\esganalyzerserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E637B059-F2DD-4CC9-A7E9-DFBD14C5C071}|ESGAnalyzerServer\\ESGAnalyzerServer.csproj|solutionrelative:esganalyzerserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +14,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Studia\\Magisterka\\Praca magisterska\\Program\\Backend\\ESGAnalyzerServer\\Program.cs",
+              "RelativeDocumentMoniker": "ESGAnalyzerServer\\Program.cs",
+              "ToolTip": "D:\\Studia\\Magisterka\\Praca magisterska\\Program\\Backend\\ESGAnalyzerServer\\Program.cs",
+              "RelativeToolTip": "ESGAnalyzerServer\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T09:44:09.639Z",
+              "EditorCaption": ""
             }
           ]
         }

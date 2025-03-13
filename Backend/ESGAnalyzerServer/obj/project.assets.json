@@ -15,6 +15,15 @@
           }
         }
       },
+      "nClam/9.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/nClam.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/nClam.dll": {}
+        }
+      },
       "Swashbuckle.AspNetCore.Swagger/7.3.1": {
         "type": "package",
         "dependencies": {
@@ -82,6 +91,20 @@
         "lib/netstandard2.0/Microsoft.OpenApi.xml",
         "microsoft.openapi.1.6.22.nupkg.sha512",
         "microsoft.openapi.nuspec"
+      ]
+    },
+    "nClam/9.0.0": {
+      "sha512": "kjJ9W3TJOl0VIS2lCpblfDHDZTUG7oejwx2PkjKxu6r+XSmcgBGJUMsrx2c8Utm4EfNDhjtKbJqwIzDpgog0Bw==",
+      "type": "package",
+      "path": "nclam/9.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/netstandard2.0/nClam.dll",
+        "lib/netstandard2.1/nClam.dll",
+        "nclam.9.0.0.nupkg.sha512",
+        "nclam.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore.Swagger/7.3.1": {
@@ -161,7 +184,8 @@
     "net8.0": [
       "Swashbuckle.AspNetCore.Swagger >= 7.3.1",
       "Swashbuckle.AspNetCore.SwaggerGen >= 7.3.1",
-      "Swashbuckle.AspNetCore.SwaggerUI >= 7.3.1"
+      "Swashbuckle.AspNetCore.SwaggerUI >= 7.3.1",
+      "nClam >= 9.0.0"
     ]
   },
   "packageFolders": {
@@ -225,6 +249,10 @@
           "Swashbuckle.AspNetCore.SwaggerUI": {
             "target": "Package",
             "version": "[7.3.1, )"
+          },
+          "nClam": {
+            "target": "Package",
+            "version": "[9.0.0, )"
           }
         },
         "imports": [

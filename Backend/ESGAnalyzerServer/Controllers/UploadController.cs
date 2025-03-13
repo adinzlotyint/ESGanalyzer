@@ -27,7 +27,7 @@ public class UploadController : ControllerBase {
         await file.CopyToAsync(fileStream);
         fileStream.Close();
 
-        await _uploadService.FileHandling(filePath);
+        await _uploadService.ScanWithWindowsDefender(filePath);
         if (System.IO.File.Exists(filePath)) { System.IO.File.Delete(filePath); }
 
         return Ok($"File {file.FileName} uploaded successfully.");

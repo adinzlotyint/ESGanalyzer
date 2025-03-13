@@ -34,3 +34,5 @@ D:\Studia\Magisterka\Praca magisterska\Program\Backend\ESGAnalyzerServer\obj\Deb
 D:\Studia\Magisterka\Praca magisterska\Program\Backend\ESGAnalyzerServer\obj\Debug\net8.0\ESGAnalyzerServer.pdb
 D:\Studia\Magisterka\Praca magisterska\Program\Backend\ESGAnalyzerServer\obj\Debug\net8.0\ESGAnalyzerServer.genruntimeconfig.cache
 D:\Studia\Magisterka\Praca magisterska\Program\Backend\ESGAnalyzerServer\obj\Debug\net8.0\ref\ESGAnalyzerServer.dll
+D:\Studia\Magisterka\Praca magisterska\Program\Backend\ESGAnalyzerServer\obj\Debug\net8.0\ESGAnalyzerServer.sourcelink.json
+D:\Studia\Magisterka\Praca magisterska\Program\Backend\ESGAnalyzerServer\bin\Debug\net8.0\nClam.dll

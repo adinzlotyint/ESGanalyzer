@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ESGAnalyzerServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+49bd3b801dc1a84d159bedea3b2ff5ccca00f05b")]
 [assembly: System.Reflection.AssemblyProductAttribute("ESGAnalyzerServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ESGAnalyzerServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

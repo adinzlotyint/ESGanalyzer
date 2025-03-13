@@ -61,6 +61,10 @@
             "Swashbuckle.AspNetCore.SwaggerUI": {
               "target": "Package",
               "version": "[7.3.1, )"
+            },
+            "nClam": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             }
           },
           "imports": [
