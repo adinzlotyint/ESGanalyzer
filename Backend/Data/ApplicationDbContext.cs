@@ -1,13 +1,13 @@
 ﻿using ESGanalyzer.Backend.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ESGanalyzer.Backend.Data {
-    public class ApplicationDbContext : DbContext {
+    public class ApplicationDbContext : IdentityDbContext {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) {
         }
         public DbSet<Report> Reports { get; set; } = null!;
-        public DbSet<User> Users { get; set; } = null!;
     }
 }
