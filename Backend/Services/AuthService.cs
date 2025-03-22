@@ -10,18 +10,25 @@ namespace ESGanalyzer.Backend.Services {
     public class AuthService : IAuthService {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _config;
+        private readonly ILogger<AuthService> _logger;
 
-        public AuthService(UserManager<IdentityUser> userManager, IConfiguration config) {
+        public AuthService(UserManager<IdentityUser> userManager, IConfiguration config, ILogger<AuthService> logger) {
             _userManager = userManager;
             _config = config;
+            _logger = logger;
         }
 
         public async Task<string> RegisterAsync(RegisterRequest request) {
             var user = new IdentityUser { UserName = request.Email, Email = request.Email };
             var result = await _userManager.CreateAsync(user, request.Password);
 
-            if (!result.Succeeded)
-                throw new Exception("Registration failed");
+            // To be expanded
+            // Should return a reason for denying if caused by compliance reasons
+            if (!result.Succeeded) {
+                var errors = string.Join("; ", result.Errors.Select(e => e.Description));
+                _logger.LogWarning("User registration failed: {Errors}", errors);
+                throw new Exception("Registration failed. Please check your input.");
+            }
 
             return JwtTokenGenerator.GenerateToken(user.Id, user.Email!, _config);
         }
@@ -30,8 +37,11 @@ namespace ESGanalyzer.Backend.Services {
             var user = await _userManager.FindByEmailAsync(request.Email)
             ?? throw new Exception("User not found!");
             var isValid = await _userManager.CheckPasswordAsync(user, request.Password);
-            if (!isValid)
+            if (!isValid) {
+                _logger.LogWarning("Login failed for user: {Email}", request.Email);
                 throw new Exception("Invalid credentials");
+            }
+
 
             return JwtTokenGenerator.GenerateToken(user.Id, user.Email!, _config);
         }
