@@ -8,6 +8,6 @@ namespace ESGanalyzer.Backend.Data {
             : base(options) {
         }
         public DbSet<Report> Reports { get; set; } = null!;
-
+        public DbSet<User> Users { get; set; } = null!;
     }
 }
