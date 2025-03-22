@@ -1,0 +1,41 @@
+# === COMMON ===
+*.log
+*.logs
+*.DS_Store
+*.sw?
+*.suo
+*.user
+*.lock.json
+*.cache
+*.local
+
+# Editor config
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.ntvs*
+*.njsproj
+*.sln
+
+# === BACKEND (ASP.NET) ===
+*.pdb
+*.dll
+*.exe
+*.db
+*.bak
+*.mdb
+*.log
+*.vs/
+obj/
+bin/
+
+# === FRONTEND (React, Vite, Next) ===
+node_modules/
+dist/
+dist-ssr/
+build/
+out/
+
+# === ENV files ===
+.env
+.env.*
