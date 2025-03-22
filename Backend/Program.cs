@@ -1,4 +1,7 @@
 
+using ESGanalyzer.Backend.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace ESGanalyzer.Backend
 {
     public class Program
@@ -6,6 +9,13 @@ namespace ESGanalyzer.Backend
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var connectionString =
+                builder.Configuration.GetConnectionString("DefaultConnection")
+                    ?? throw new InvalidOperationException("Connection string"
+                    + "'DefaultConnection' not found.");
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString));
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
