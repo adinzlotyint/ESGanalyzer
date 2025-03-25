@@ -6,10 +6,11 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 using Microsoft.Extensions.Options;
+using System.IdentityModel.Tokens.Jwt;
 
 public class AuthServiceTests {
     [Fact]
-    public async Task LoginAsync_Should_Return_Token_When_Credentials_Valid() {
+    public async Task LoginAsync_WithValidCredentials_ReturnsJwtToken() {
         // Arrange
         var mockUser = new IdentityUser {
             Id = Guid.NewGuid().ToString(),
@@ -40,9 +41,14 @@ public class AuthServiceTests {
 
         // Act
         var token = await service.LoginAsync(request);
+        var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
         // Assert
+        userManager.Verify(x => x.FindByEmailAsync(request.Email), Times.Once());
+        userManager.Verify(x => x.CheckPasswordAsync(mockUser, request.Password), Times.Once());
         Assert.False(string.IsNullOrWhiteSpace(token));
+        Assert.Equal(mockUser.Id, jwt.Subject);
+        Assert.Contains(jwt.Claims, c => c.Type == "email" && c.Value == mockUser.Email);
     }
 
     private Mock<UserManager<IdentityUser>> MockUserManager() {
