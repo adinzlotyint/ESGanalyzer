@@ -9,6 +9,11 @@ using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
 
 public class AuthServiceTests {
+    private readonly Mock<UserManager<IdentityUser>> _mockUser;
+    public AuthServiceTests() {
+        _mockUser = MockUserManager();
+    }
+
     [Fact]
     public async Task LoginAsync_WithValidCredentials_ReturnsJwtToken() {
         // Arrange
@@ -18,9 +23,8 @@ public class AuthServiceTests {
             UserName = "test@example.com"
         };
 
-        var userManager = MockUserManager();
-        userManager.Setup(x => x.FindByEmailAsync(mockUser.Email)).ReturnsAsync(mockUser);
-        userManager.Setup(x => x.CheckPasswordAsync(mockUser, "validPassword")).ReturnsAsync(true);
+        _mockUser.Setup(x => x.FindByEmailAsync(mockUser.Email)).ReturnsAsync(mockUser);
+        _mockUser.Setup(x => x.CheckPasswordAsync(mockUser, "validPassword")).ReturnsAsync(true);
 
         var config = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string?>
@@ -32,7 +36,7 @@ public class AuthServiceTests {
             }).Build();
 
         var logger = Mock.Of<ILogger<AuthService>>();
-        var service = new AuthService(userManager.Object, config, logger);
+        var service = new AuthService(_mockUser.Object, config, logger);
 
         var request = new LoginRequest {
             Email = mockUser.Email,
@@ -44,8 +48,8 @@ public class AuthServiceTests {
         var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
         // Assert
-        userManager.Verify(x => x.FindByEmailAsync(request.Email), Times.Once());
-        userManager.Verify(x => x.CheckPasswordAsync(mockUser, request.Password), Times.Once());
+        _mockUser.Verify(x => x.FindByEmailAsync(request.Email), Times.Once());
+        _mockUser.Verify(x => x.CheckPasswordAsync(mockUser, request.Password), Times.Once());
         Assert.False(string.IsNullOrWhiteSpace(token));
         Assert.Equal(mockUser.Id, jwt.Subject);
         Assert.Contains(jwt.Claims, c => c.Type == "email" && c.Value == mockUser.Email);
