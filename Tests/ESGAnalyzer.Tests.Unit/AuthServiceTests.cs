@@ -1,5 +1,6 @@
 using Azure.Core;
 using ESGanalyzer.Backend.DTOs;
+using ESGanalyzer.Backend.Exceptions;
 using ESGanalyzer.Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -71,7 +72,7 @@ public class AuthServiceTests {
         _mockUser.Setup(x => x.FindByEmailAsync(request.Email)).ReturnsAsync((IdentityUser?)null);
 
         // Act & Assert
-        var ex = await Assert.ThrowsAsync<Exception>(() => service.LoginAsync(request));
+        var ex = await Assert.ThrowsAsync<LoginFailedException>(() => service.LoginAsync(request));
         Assert.Equal("User not found!", ex.Message);
         _mockUser.Verify(x => x.FindByEmailAsync(request.Email), Times.Once());
     }
@@ -96,7 +97,7 @@ public class AuthServiceTests {
         _mockUser.Setup(x => x.CheckPasswordAsync(mockUser, request.Password)).ReturnsAsync(false);
 
         // Act & Assert
-        var ex = await Assert.ThrowsAsync<Exception>(() => service.LoginAsync(request));
+        var ex = await Assert.ThrowsAsync<LoginFailedException>(() => service.LoginAsync(request));
         Assert.Equal("Invalid credentials", ex.Message);
         _mockUser.Verify(x => x.CheckPasswordAsync(mockUser, request.Password), Times.Once());
     }
