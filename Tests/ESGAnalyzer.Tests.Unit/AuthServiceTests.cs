@@ -1,9 +1,11 @@
+using Azure.Core;
 using ESGanalyzer.Backend.DTOs;
 using ESGanalyzer.Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Moq;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -97,6 +99,50 @@ public class AuthServiceTests {
         var ex = await Assert.ThrowsAsync<Exception>(() => service.LoginAsync(request));
         Assert.Equal("Invalid credentials", ex.Message);
         _mockUser.Verify(x => x.CheckPasswordAsync(mockUser, request.Password), Times.Once());
+    }
+
+    [Fact]
+    public async Task RegisterAsync_WithValidInput_ReturnsJwtToken() {
+        //Arrange
+        var service = new AuthService(_mockUser.Object, _config, _logger);
+
+        var request = new RegisterRequest {
+            Email = "test@test.pl",
+            Password = "validPassword123@@"
+        };
+
+        
+        _mockUser.Setup(x => x.CreateAsync(
+                    It.Is<IdentityUser>(u =>
+                        u.Email == request.Email && u.UserName == request.Email),
+                    request.Password))
+                .ReturnsAsync(IdentityResult.Success);
+        //Act
+        var token = await service.RegisterAsync(request);
+        var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
+
+        //Assert
+        Assert.False(String.IsNullOrEmpty(token));
+        Assert.NotNull(token);
+        Assert.Equal(request.Email, jwt.Claims.First(c => c.Type == "email").Value);
+        Assert.NotNull(jwt.Subject);
+        Assert.True(jwt.ValidTo > DateTime.UtcNow);
+        _mockUser.Verify(x => x.CreateAsync(
+                                    It.Is<IdentityUser>(u => u.Email == request.Email),
+                                    request.Password), Times.Once());
+    }
+
+    [Fact]
+    public async Task RegisterAsync_WhenEmailAlreadyExists_ThrowsError() {
+
+    }
+    [Fact]
+    public async Task RegisterAsync_WhenPasswordIsTooWeak_ThrowsError() {
+
+    }
+    [Fact]
+    public async Task RegisterAsync_WhenIdentityResultFails_ThrowsError() {
+
     }
 
     private Mock<UserManager<IdentityUser>> MockUserManager() {
