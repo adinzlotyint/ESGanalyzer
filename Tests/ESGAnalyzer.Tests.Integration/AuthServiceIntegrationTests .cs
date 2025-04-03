@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.IdentityModel.Tokens.Jwt;
 
 public class AuthServiceInMemoryTests : IDisposable {
     private readonly ServiceProvider _provider;
@@ -44,16 +45,25 @@ public class AuthServiceInMemoryTests : IDisposable {
     }
 
     [Fact]
-    public async Task Register_WithValidCredentials_ReturnsToken() {
+    public async Task Register_WithValidCredentials_ReturnsValidToken() {
+        //Arrange
         var authService = _provider.GetRequiredService<AuthService>();
+        var config = _provider.GetRequiredService<IConfiguration>();
 
         var request = new RegisterRequest {
             Email = "register@example.com",
             Password = "StrongPass123!!"
         };
 
+        //Act
         var token = await authService.RegisterAsync(request);
+        var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
+        var exp = DateTime.UtcNow + TimeSpan.FromMinutes(Convert.ToDouble(config["Jwt:ExpireMinutes"]));
 
+        //Assert
+        jwt.Issuer.Should().Be(config["Jwt:Issuer"]);
+        jwt.Audiences.First().Should().Be(config["Jwt:Audience"]);
+        jwt.ValidTo.Should().BeCloseTo(exp, precision: TimeSpan.FromSeconds(5));
         token.Should().NotBeNullOrWhiteSpace();
     }
 
