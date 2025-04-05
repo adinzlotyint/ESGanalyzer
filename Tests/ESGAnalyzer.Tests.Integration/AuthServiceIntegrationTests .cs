@@ -1,6 +1,7 @@
 using Azure.Core;
 using ESGanalyzer.Backend.Data;
 using ESGanalyzer.Backend.DTOs;
+using ESGanalyzer.Backend.Exceptions;
 using ESGanalyzer.Backend.Services;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
@@ -61,7 +62,7 @@ public class AuthServiceInMemoryTests : IDisposable {
         var token = await authService.RegisterAsync(request);
         var user = await userManager.FindByEmailAsync(request.Email);
         //Assert
-        AssertTokenIsValid(token, config, request.Email, user.Id);
+        AssertTokenIsValid(token, config, request.Email, user?.Id);
         token.Should().NotBeNullOrWhiteSpace();
     }
 
@@ -90,7 +91,25 @@ public class AuthServiceInMemoryTests : IDisposable {
         token.Should().NotBeNullOrWhiteSpace();
     }
 
-    private void AssertTokenIsValid(string token, IConfiguration config, string expectedEmail, string expectedUserId) {
+    [Fact]
+    public async Task Login_WithWrongPassword_ThrowsLoginFailedException() {
+        //Arrange
+        var userManager = _provider.GetRequiredService<UserManager<IdentityUser>>();
+        var email = "test@example.com";
+        var password = "StrongPass123!!";
+        var user = new IdentityUser { Email = email, UserName = email };
+
+        //Act
+        await userManager.CreateAsync(user, password);
+        var authService = _provider.GetRequiredService<AuthService>();
+        var act = () => authService.LoginAsync(new LoginRequest { Email = email, Password = "Wrong password" });
+
+        //Assert
+        await act.Should().ThrowAsync<LoginFailedException>();
+
+    }
+
+    private void AssertTokenIsValid(string token, IConfiguration config, string expectedEmail, string? expectedUserId = null) {
         var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
         var exp = DateTime.UtcNow + TimeSpan.FromMinutes(Convert.ToDouble(config["Jwt:ExpireMinutes"]));
 
