@@ -72,15 +72,18 @@ public class AuthServiceInMemoryTests : IDisposable {
         var email = "test@example.com";
         var password = "StrongPass123!!";
         var config = _provider.GetRequiredService<IConfiguration>();
-
+        var user = new IdentityUser { Email = email, UserName = email };
+        
         //Act
+        await userManager.CreateAsync(user, password);
+
         var authService = _provider.GetRequiredService<AuthService>();
 
         var token = await authService.LoginAsync(new LoginRequest {
             Email = email,
             Password = password
         });
-        var user = await userManager.FindByEmailAsync(email);
+        
 
         //Assert
         AssertTokenIsValid(token, config, email, user.Id);
