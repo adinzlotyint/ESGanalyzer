@@ -1,3 +1,4 @@
+using Azure.Core;
 using ESGanalyzer.Backend.Data;
 using ESGanalyzer.Backend.DTOs;
 using ESGanalyzer.Backend.Services;
@@ -47,43 +48,54 @@ public class AuthServiceInMemoryTests : IDisposable {
     [Fact]
     public async Task Register_WithValidCredentials_ReturnsValidToken() {
         //Arrange
+        var userManager = _provider.GetRequiredService<UserManager<IdentityUser>>();
         var authService = _provider.GetRequiredService<AuthService>();
         var config = _provider.GetRequiredService<IConfiguration>();
-
         var request = new RegisterRequest {
             Email = "register@example.com",
             Password = "StrongPass123!!"
         };
 
+
         //Act
         var token = await authService.RegisterAsync(request);
-        var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
-        var exp = DateTime.UtcNow + TimeSpan.FromMinutes(Convert.ToDouble(config["Jwt:ExpireMinutes"]));
-
+        var user = await userManager.FindByEmailAsync(request.Email);
         //Assert
-        jwt.Issuer.Should().Be(config["Jwt:Issuer"]);
-        jwt.Audiences.First().Should().Be(config["Jwt:Audience"]);
-        jwt.ValidTo.Should().BeCloseTo(exp, precision: TimeSpan.FromSeconds(5));
+        AssertTokenIsValid(token, config, request.Email, user.Id);
         token.Should().NotBeNullOrWhiteSpace();
     }
 
     [Fact]
-    public async Task Login_WithValidCredentials_ReturnsToken() {
+    public async Task Login_WithValidCredentials_ReturnsValidToken() {
+        //Arrange
         var userManager = _provider.GetRequiredService<UserManager<IdentityUser>>();
         var email = "test@example.com";
         var password = "StrongPass123!!";
-        var user = new IdentityUser { Email = email, UserName = email };
-        var createResult = await userManager.CreateAsync(user, password);
-        createResult.Succeeded.Should().BeTrue();
+        var config = _provider.GetRequiredService<IConfiguration>();
 
+        //Act
         var authService = _provider.GetRequiredService<AuthService>();
 
         var token = await authService.LoginAsync(new LoginRequest {
             Email = email,
             Password = password
         });
+        var user = await userManager.FindByEmailAsync(email);
 
+        //Assert
+        AssertTokenIsValid(token, config, email, user.Id);
         token.Should().NotBeNullOrWhiteSpace();
     }
 
+    private void AssertTokenIsValid(string token, IConfiguration config, string expectedEmail, string expectedUserId) {
+        var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
+        var exp = DateTime.UtcNow + TimeSpan.FromMinutes(Convert.ToDouble(config["Jwt:ExpireMinutes"]));
+
+        jwt.Issuer.Should().Be(config["Jwt:Issuer"]);
+        jwt.Audiences.First().Should().Be(config["Jwt:Audience"]);
+        jwt.ValidTo.Should().BeCloseTo(exp, precision: TimeSpan.FromSeconds(5));
+        jwt.Claims.First(c => c.Type == "email").Value.Should().Be(expectedEmail);
+        jwt.Claims.First(c => c.Type == "sub").Value.Should().Be(expectedUserId);
+    }
 }
+
