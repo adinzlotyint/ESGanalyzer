@@ -50,6 +50,7 @@ namespace ESGanalyzer.Backend
                 });
 
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IParseService, ParseService>();
 
             builder.Services.Configure<IdentityOptions>(options =>
             {
