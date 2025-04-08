@@ -1,6 +1,7 @@
 
 using ESGanalyzer.Backend.Data;
 using ESGanalyzer.Backend.Services;
+using ESGanalyzer.Backend.Services.Analysis;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +52,12 @@ namespace ESGanalyzer.Backend
 
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IParseService, ParseService>();
+            builder.Services.AddScoped<ICriterionAnalyzer, CriterionA_ScopeEmissions>();
+            //builder.Services.AddScoped<ICriterionAnalyzer, CriterionB_StandardReferences>();
+            //builder.Services.AddScoped<ICriterionAnalyzer, CriterionC_NumericConsistency>();
+            //builder.Services.AddScoped<ICriterionAnalyzer, CriterionD_ReductionTargets>();
+            //builder.Services.AddScoped<ICriterionAnalyzer, CriterionE_ClimateRisk>();
+            //builder.Services.AddScoped<ICriterionAnalyzer, CriterionF_EfficiencyIndicators>();
 
             builder.Services.Configure<IdentityOptions>(options =>
             {
