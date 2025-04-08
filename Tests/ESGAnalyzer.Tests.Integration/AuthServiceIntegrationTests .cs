@@ -106,8 +106,23 @@ public class AuthServiceInMemoryTests : IDisposable {
 
         //Assert
         await act.Should().ThrowAsync<LoginFailedException>();
-
     }
+
+    [Fact]
+    public async Task Login_WithWrongEmail_ThrowsLoginFailedException() {
+        // Arrange
+        var authService = _provider.GetRequiredService<AuthService>();
+
+        // Act
+        var act = () => authService.LoginAsync(new LoginRequest {
+            Email = "wrong@email.com",
+            Password = "DoesNotMatter123!"
+        });
+
+        // Assert
+        await act.Should().ThrowAsync<LoginFailedException>();
+    }
+
 
     private void AssertTokenIsValid(string token, IConfiguration config, string expectedEmail, string? expectedUserId = null) {
         var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
